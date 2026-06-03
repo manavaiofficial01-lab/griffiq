@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ambiguous-posterity-545330.framer.app/sitemap.xml
