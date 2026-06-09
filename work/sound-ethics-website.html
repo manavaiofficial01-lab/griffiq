@@ -243,6 +243,90 @@
 		(function() {
 			var isSubFolder = window.location.pathname.indexOf('/work/') !== -1 || window.location.href.indexOf('/work/') !== -1;
 			var basePath = isSubFolder ? '../images/' : 'images/';
+			var prefix = isSubFolder ? '../' : '';
+
+			// Intercept navigation link clicks
+			document.addEventListener('click', function(e) {
+				var target = e.target;
+				var current = target;
+				var maxDepth = 5;
+				while (current && maxDepth > 0) {
+					var text = (current.textContent || "").trim().replace(/\s+/g, ' ').toLowerCase();
+					var href = current.getAttribute('href') || '';
+					var name = (current.getAttribute('data-framer-name') || '').toLowerCase();
+					var className = (current.className || '').toString().toLowerCase();
+
+					// 1. Check by explicit text labels
+					if (text === 'home') {
+						e.preventDefault();
+						e.stopPropagation();
+						window.location.href = prefix + 'index.html';
+						return;
+					} else if (text === 'service' || text === 'services' || text === 'skills') {
+						e.preventDefault();
+						e.stopPropagation();
+						window.location.href = prefix + 'skills.html';
+						return;
+					} else if (text === 'blog' || text === 'about') {
+						e.preventDefault();
+						e.stopPropagation();
+						window.location.href = prefix + 'blog.html';
+						return;
+					} else if (text === 'work') {
+						e.preventDefault();
+						e.stopPropagation();
+						window.location.href = prefix + 'work.html';
+						return;
+					} else if (text === 'contact us' || text === 'contact') {
+						e.preventDefault();
+						e.stopPropagation();
+						window.location.href = prefix + 'contact-us.html';
+						return;
+					}
+
+					// 2. Check by data-framer-name or class containing "logo" or "lumen"
+					if (name.indexOf('logo') !== -1 || name.indexOf('lumen') !== -1 || className.indexOf('logo') !== -1) {
+						e.preventDefault();
+						e.stopPropagation();
+						window.location.href = prefix + 'index.html';
+						return;
+					}
+
+					// 3. Check by anchor href attributes
+					if (current.tagName === 'A' && href) {
+						var hrefLower = href.toLowerCase();
+						if (hrefLower.indexOf('index.html') !== -1) {
+							e.preventDefault();
+							e.stopPropagation();
+							window.location.href = prefix + 'index.html';
+							return;
+						} else if (hrefLower.indexOf('skills.html') !== -1) {
+							e.preventDefault();
+							e.stopPropagation();
+							window.location.href = prefix + 'skills.html';
+							return;
+						} else if (hrefLower.indexOf('blog.html') !== -1) {
+							e.preventDefault();
+							e.stopPropagation();
+							window.location.href = prefix + 'blog.html';
+							return;
+						} else if (hrefLower.indexOf('work.html') !== -1) {
+							e.preventDefault();
+							e.stopPropagation();
+							window.location.href = prefix + 'work.html';
+							return;
+						} else if (hrefLower.indexOf('contact-us.html') !== -1) {
+							e.preventDefault();
+							e.stopPropagation();
+							window.location.href = prefix + 'contact-us.html';
+							return;
+						}
+					}
+
+					current = current.parentElement;
+					maxDepth--;
+				}
+			}, true);
 			
 			var originalLogoKeys = [
 				'8hCYc56tNZzqrKqV7qVWAqrYMxc',
@@ -306,17 +390,74 @@
 				});
 			}
 
-			replaceImages();
-			setInterval(replaceImages, 100);
+			function replaceText() {
+				var h2s = document.querySelectorAll('h2');
+				h2s.forEach(function(h2) {
+					var text = h2.textContent || '';
+					if (text.toLowerCase().indexOf('building skills') !== -1 || text.toLowerCase().indexOf('creative growth') !== -1) {
+						if (h2.textContent !== 'READY TO BUILD SOMETHING REMARKABLE?') {
+							h2.textContent = 'READY TO BUILD SOMETHING REMARKABLE?';
+							h2.style.textTransform = 'uppercase';
+						}
+					}
+				});
+
+				var h4s = document.querySelectorAll('h4');
+				h4s.forEach(function(h4) {
+					var text = h4.textContent || '';
+					if (text.indexOf('34°03') !== -1 || text.toLowerCase().indexOf('california') !== -1) {
+						if (h4.style.display !== 'none') {
+							h4.style.display = 'none';
+						}
+					}
+				});
+
+				var inputs = document.querySelectorAll('input, textarea');
+				inputs.forEach(function(input) {
+					if (input.placeholder === 'Jane Smith') {
+						input.placeholder = 'Adam';
+					}
+					if (input.value === 'Jane Smith') {
+						input.value = 'Adam';
+					}
+				});
+
+				var elements = document.querySelectorAll('div, span, p, label, a, h1, h2, h3, h4, h5, h6');
+				elements.forEach(function(el) {
+					if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+						if (el.textContent.trim() === 'Jane Smith') {
+							el.textContent = 'Adam';
+						}
+					}
+				});
+
+				var badges = document.querySelectorAll('#__framer-badge-container, .__framer-badge, .framer-badge, a[href*="framer.com"]');
+				badges.forEach(function(badge) {
+					badge.style.setProperty('display', 'none', 'important');
+					badge.style.setProperty('visibility', 'hidden', 'important');
+					badge.style.setProperty('opacity', '0', 'important');
+					badge.style.setProperty('pointer-events', 'none', 'important');
+					badge.remove();
+				});
+			}
+
+			function runAll() {
+				replaceImages();
+				replaceText();
+			}
+
+			runAll();
+			setInterval(runAll, 100);
 
 			var observer = new MutationObserver(function() {
-				replaceImages();
+				runAll();
 			});
 			observer.observe(document.documentElement, {
 				childList: true,
 				subtree: true,
 				attributes: true,
-				attributeFilter: ['src', 'srcset']
+				attributeFilter: ['src', 'srcset'],
+				characterData: true
 			});
 		})();
 	</script>
