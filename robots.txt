@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ambiguous-posterity-545330.framer.app/sitemap.xml
+Sitemap: https://generous-mindset-329953.framer.app/sitemap.xml
