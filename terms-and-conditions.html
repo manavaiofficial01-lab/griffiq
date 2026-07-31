@@ -185,6 +185,64 @@
     
     <!-- End of headEnd -->
 	
+
+<style id="__framer-badge-hide-style">
+#__framer-badge-container,
+.__framer-badge,
+[id*="framer-badge"],
+[class*="__framer-badge"],
+[class*="framer-badge"],
+a[href*="framer.com"],
+div[data-framer-name*="Badge"],
+#__framer-badge-container * {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    z-index: -999999 !important;
+}
+</style>
+<script id="__framer-badge-remover">
+(function() {
+  var origGetId = document.getElementById.bind(document);
+  document.getElementById = function(id) {
+    if (id === '__framer-badge-container') {
+      var el = origGetId(id);
+      if (el) el.remove();
+      return null;
+    }
+    return origGetId(id);
+  };
+  function killBadge() {
+    var badge = origGetId('__framer-badge-container');
+    if (badge) badge.remove();
+    var badges = document.querySelectorAll('.__framer-badge, [id*="framer-badge"], [class*="__framer-badge"]');
+    badges.forEach(function(b) { b.remove(); });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', killBadge);
+  } else {
+    killBadge();
+  }
+  window.addEventListener('load', killBadge);
+  if (window.MutationObserver) {
+    var obs = new MutationObserver(function(mutations) {
+      killBadge();
+    });
+    if (document.documentElement) {
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+    }
+  }
+})();
+</script>
 </head>
 <body>
 	<script async src="https://events.framer.com/script?v=2" data-fid="9fd8f86b0cea3f323ecea5573b347f29f6006ff28fda0aa9af0bf3298e1ff867" data-no-nt></script>
@@ -197,7 +255,7 @@
 	<script>!function(){var w="framer_variant";function u(a,r){let e=r.indexOf("#"),t=e===-1?r:r.substring(0,e),o=e===-1?"":r.substring(e),n=t.indexOf("?"),h=n===-1?t:t.substring(0,n),d=n===-1?"":t.substring(n),s=new URLSearchParams(d),m=new URLSearchParams(a);for(let[i,l]of m)s.has(i)||i!==w&&s.append(i,l);let c=s.toString();return c===""?t+o:h+"?"+c+o}var g='div#main a[href^="#"],div#main a[href^="/"],div#main a[href^="."]',f="div#main a[data-framer-preserve-params]",S=document.currentScript?.hasAttribute("data-preserve-internal-params");if(window.location.search&&!navigator.webdriver&&!/bot|-google|google-|yandex|ia_archiver|crawl|spider/iu.test(navigator.userAgent)){let a=document.querySelectorAll(S?`${g},${f}`:f);for(let r of a){let e=u(window.location.search,r.href);r.setAttribute("href",e)}}
 }()</script>
 	
-	<div id="__framer-badge-container"><!--$--><!--$--><!--$--><a class="framer-6jWyo framer-n0ccwk framer-v-n0ccwk framer-bmpgw8 __framer-badge" data-framer-appear-id="n0ccwk" data-framer-name="Light" data-nosnippet="true" style="will-change:transform;pointer-events:auto;opacity:0.001;transform:translateY(10px)" href="https://www.framer.com" rel="noopener" title="Create a free website with Framer, the website builder loved by startups, designers and agencies."><div class="framer-13yxzio" data-framer-name="Backdrop" style="background-color:rgb(255, 255, 255);border-bottom-left-radius:10px;border-bottom-right-radius:10px;border-top-left-radius:10px;border-top-right-radius:10px;box-shadow:0px 0.6021873017743928px 1.5656869846134214px -1.5px rgba(0, 0, 0, 0.17), 0px 2.288533303243457px 5.950186588432988px -3px rgba(0, 0, 0, 0.14), 0px 10px 26px -4.5px rgba(0, 0, 0, 0.02)"></div><div class="framer-19yaanm" data-framer-name="Content" style="transform:translate(-50%, -50%)"><div class="framer-1kflzx5"><div data-framer-name="Logo" class="framer-hcsc7 framer-e50co" style="--1bd4d3i:rgb(0, 0, 0);--otdjsv:rgb(0, 0, 0);transform:translateX(-50%)"></div></div><!--$--><p style="position:absolute;transform:scale(0.001)">Create a free website with Framer, the website builder loved by startups, designers and agencies.</p><div data-framer-name="Text" class="framer-g7oZR framer-1um7t9d" style="--1bd4d3i:rgb(0, 0, 0);--otdjsv:rgb(0, 0, 0)"></div><!--/$--></div><div class="framer-j4ugry" data-framer-name="Bottom" style="mask:linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,1) 100%) add;-webkit-mask:linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,1) 100%) add;border-bottom-left-radius:11px;border-bottom-right-radius:11px;border-top-left-radius:11px;border-top-right-radius:11px;box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);opacity:0.06"></div><div class="framer-jnuwbw" data-framer-name="Border" style="border-bottom-left-radius:11px;border-bottom-right-radius:11px;border-top-left-radius:11px;border-top-right-radius:11px;box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);opacity:0.04"></div></a><!--/$--><!--/$--><!--/$--></div>
+	<div class="framer-19yaanm" data-framer-name="Content" style="transform:translate(-50%, -50%)"><div class="framer-1kflzx5"><div data-framer-name="Logo" class="framer-hcsc7 framer-e50co" style="--1bd4d3i:rgb(0, 0, 0);--otdjsv:rgb(0, 0, 0);transform:translateX(-50%)"></div></div><!--$--><p style="position:absolute;transform:scale(0.001)">Create a free website with Framer, the website builder loved by startups, designers and agencies.</p><div data-framer-name="Text" class="framer-g7oZR framer-1um7t9d" style="--1bd4d3i:rgb(0, 0, 0);--otdjsv:rgb(0, 0, 0)"></div><!--/$--></div><div class="framer-j4ugry" data-framer-name="Bottom" style="mask:linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,1) 100%) add;-webkit-mask:linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,1) 100%) add;border-bottom-left-radius:11px;border-bottom-right-radius:11px;border-top-left-radius:11px;border-top-right-radius:11px;box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);opacity:0.06"></div><div class="framer-jnuwbw" data-framer-name="Border" style="border-bottom-left-radius:11px;border-bottom-right-radius:11px;border-top-left-radius:11px;border-top-right-radius:11px;box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);opacity:0.04"></div></a><!--/$--><!--/$--><!--/$--></div>
 	<script data-framer-appear-animation="no-preference"></script>
 	<script>typeof document<"u"&&(window.process={...window.process,env:{...window.process?.env,NODE_ENV:"production"}});</script>
 	<link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/rolldown-runtime.Dh6celcD.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/react.CEu8kCkm.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/motion.BWWqHJTZ.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/framer.CojSOgs-.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/shared-lib.HC4GXFJ7.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/IB3t5k9YD.BPdum-w1.mjs"><link rel="modulepreload" fetchpriority="low" href="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/Hyf89vHfJ.CdeZnvuS.mjs"><script type="module" async data-framer-bundle="main" fetchPriority="low" src="https://framerusercontent.com/sites/14ad8SNnh6xWzExkd1Y19x/script_main.CDBzZsNM.mjs"></script>
