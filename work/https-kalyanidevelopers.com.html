@@ -207,6 +207,57 @@ div[data-framer-name*="Badge"],
   }
 })();
 </script>
+<script id="__griffiq-title-favicon-lock">
+(function() {
+  var TARGET_TITLE = "Griffiq | Creative Social Media & Branding Agency";
+  var FAVICON_PATH = "../favicon.png";
+
+  function enforce() {
+    try {
+      var titleEl = document.querySelector('title');
+      if (titleEl && titleEl.textContent !== TARGET_TITLE) {
+        titleEl.textContent = TARGET_TITLE;
+      }
+    } catch(e) {}
+
+    try {
+      var icons = document.querySelectorAll('link[rel*="icon"]');
+      icons.forEach(function(icon) {
+        if (icon.getAttribute('href') !== FAVICON_PATH) {
+          icon.setAttribute('href', FAVICON_PATH);
+        }
+      });
+    } catch(e) {}
+  }
+
+  try {
+    Object.defineProperty(document, 'title', {
+      get: function() { return TARGET_TITLE; },
+      set: function() { enforce(); return TARGET_TITLE; },
+      configurable: true
+    });
+  } catch(e) {}
+
+  enforce();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', enforce);
+  }
+  window.addEventListener('load', enforce);
+  setInterval(enforce, 300);
+
+  if (window.MutationObserver) {
+    var obs = new MutationObserver(function() { enforce(); });
+    function startObs() {
+      if (document.head) {
+        obs.observe(document.head, { childList: true, subtree: true, characterData: true });
+      }
+    }
+    if (document.head) startObs();
+    else document.addEventListener('DOMContentLoaded', startObs);
+  }
+})();
+</script>
 </head>
 <body>
 	<script async src="https://events.framer.com/script?v=2" data-fid="9fd8f86b0cea3f323ecea5573b347f29f6006ff28fda0aa9af0bf3298e1ff867" data-no-nt></script>
