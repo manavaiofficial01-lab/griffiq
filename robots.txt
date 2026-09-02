@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://generous-mindset-329953.framer.app/sitemap.xml
+Sitemap: https://www.griffiq.com/sitemap.xml
